@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		#app{
+			text-align: center;
+			margin: 0 auto;
+		}
+		button {
+			background-color: #56E188;
+			width: 140px;
+			height: 40px;
+			border-radius: 6px;
+			margin: 0 10px;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app">
+		<h2>基本使用</h2>
+		<button @click="fun1()">发送GET请求</button>
+		<button>发送POST请求</button>
+		<button>发送PUT请求</button>
+		<button>发送DELETE请求</button>
+	</div>
+	<script src="js/axios.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script>
+		//默认配置
+        //设置默认的请求类型为GET
+		axios.defaults.method = 'GET';
+        //设置基础URL
+		axios.defaults.baseURL = 'http://localhost:3000';
+        //设置与请求一起发送的URL参数
+		axios.defaults.params = {username:'kaede', password:'123456'};
+		//设置超时时间（单位ms），若超时则取消请求
+		axios.defaults.timeout = 3000;
+		let app = new Vue({
+			el: '#app',
+			methods: {
+                fun1: function () {
+                    axios({
+                        url: '/posts'
+                    }).then(resp => {
+                        console.log(resp);
+                    });
+                }
+			}
+		});
+	</script>
+
+</body>
+</html>

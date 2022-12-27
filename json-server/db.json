@@ -1,0 +1,24 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "title": "update message from kaede2",
+      "author": "kaede2",
+      "id": 3
+    }
+  ],
+  "comments": [
+    {
+      "body": "kaede's comment2",
+      "postId": 3,
+      "id": 2
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

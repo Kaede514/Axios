@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		#app{
+			text-align: center;
+			margin: 0 auto;
+		}
+		button {
+			background-color: #56E188;
+			width: 140px;
+			height: 40px;
+			border-radius: 6px;
+			margin: 0 10px;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app">
+		<h2>基本使用</h2>
+		<button @click="fun1()">发送GET请求</button>
+		<button @click="fun2()">发送POST请求</button>
+		<button @click="fun3()">发送PUT请求</button>
+		<button @click="fun4()">发送DELETE请求</button>
+	</div>
+	<script src="js/axios.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script>
+		let app = new Vue({
+			el: '#app',
+			methods: {
+                fun1: function () {
+					//发送axios请求，返回一个Promise对象
+					axios({
+						//请求类型
+						method: 'GET',
+						//URL
+						url: 'http://localhost:3000/posts/2'
+					}).then(resp => {
+                        console.log(resp);
+					});
+                },
+                fun2: function () {
+					axios({
+						method: 'POST',
+						url: 'http://localhost:3000/posts',
+						//设置请求体
+						data: {
+                            title: 'the message from kaede',
+							author: 'kaede'
+						}
+					}).then(resp => {
+						console.log(resp);
+					});
+                },
+				//更新数据
+                fun3: function () {
+					axios({
+						method: 'PUT',
+						url: 'http://localhost:3000/posts/3',
+						//设置请求体
+						data: {
+                            title: 'update message from kaede2',
+							author: 'kaede2'
+						}
+					}).then(resp => {
+						console.log(resp);
+					});
+                },
+				//删除数据
+                fun4: function () {
+					axios({
+						method: 'DELETE',
+						url: 'http://localhost:3000/posts/2'
+					}).then(resp => {
+						console.log(resp);
+					});
+                }
+			}
+		});
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+
+	<script src="js/axios.min.js"></script>
+	<script>
+		//创建实例对象  /joke
+		let obj = axios.create({
+			baseURL: 'https://autumnfish.cn/api',
+            timeout: 3000
+		});
+        //这里obj对象和axios的功能几乎相同
+        console.log(obj);
+        //基本使用
+        obj({
+			method: 'GET',
+			url: '/joke'
+		}).then(resp => {
+			console.log(resp);
+		});
+        //其他使用
+        obj.get('/joke').then(resp => {
+            console.log(resp);
+        });
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<style>
+		#app{
+			text-align: center;
+			margin: 0 auto;
+		}
+		button {
+			background-color: #56E188;
+			width: 140px;
+			height: 40px;
+			border-radius: 6px;
+			margin: 0 10px;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app">
+		<h2>axios取消请求</h2>
+		<button @click="fun1()">发送请求</button>
+		<button @click="fun2()">取消请求</button>
+	</div>
+	<script src="js/axios.min.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script>
+		//2、声明一个全局变量
+		let cancel = null;
+		let app = new Vue({
+			el: '#app',
+			methods: {
+                //发送请求
+				fun1: function () {
+                    //检测上一次的请求是否已经完成，若用户短时间多次点击请求会给
+					//服务器带来压力，需拦截多余的请求
+					if(cancel)
+						//说明上一次请求还在继续，取消上一次的请求
+						cancel();
+                    axios.get(
+                        'http://localhost:3000/posts',
+                        {
+                        	//1、添加配置对象的属性
+                        	cancelToken: new axios.CancelToken(c => {
+                        		//将c的值赋值给cancel
+                        		cancel = c;
+							})
+						}
+					).then(resp => {
+						console.log(resp);
+						//请求完成后，将cancel的值初始化为null
+						cancel = null;
+					});
+                },
+				//绑定第二个事件，取消请求
+				//由于本地响应太快看不出效果，故需使响应时间变长
+				//json-server --watch db.json -d 3000
+				fun2: function () {
+                    cancel();
+                }
+			}
+		});
+	</script>
+
+</body>
+</html>
